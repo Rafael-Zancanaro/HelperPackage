@@ -10,7 +10,17 @@
     <RepositoryUrl>https://github.com/Rafael-Zancanaro/HelperPackage#readme</RepositoryUrl>
     <AssemblyVersion>1.0.1</AssemblyVersion>
     <FileVersion>1.0.1</FileVersion>
+    <Version>1.0.1</Version>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <AnalysisLevel>latest</AnalysisLevel>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
 	  <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.3" />
