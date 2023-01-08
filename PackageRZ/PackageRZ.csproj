@@ -8,22 +8,23 @@
     <Title>PackageRafa</Title>
     <PackageProjectUrl>https://github.com/Rafael-Zancanaro/HelperPackage</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Rafael-Zancanaro/HelperPackage#readme</RepositoryUrl>
-    <AssemblyVersion>1.0.1</AssemblyVersion>
-    <FileVersion>1.0.1</FileVersion>
+    <AssemblyVersion>1.0.2</AssemblyVersion>
+    <FileVersion>1.0.2</FileVersion>
+    <Version>1.0.2</Version>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <AnalysisLevel>latest</AnalysisLevel>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
 	  <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.3" />
-	  <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
-	  <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.9" />
-	  <PackageReference Include="Microsoft.AspNetCore.Diagnostics.Abstractions" Version="2.2.0" />
-	  <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
 	  <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
-	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.9" />
-	  <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.9" />
-	  <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
-	  <PackageReference Include="Microsoft.OpenApi" Version="1.2.3" />
-	  <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.1.5" />
   </ItemGroup>
 
 </Project>
