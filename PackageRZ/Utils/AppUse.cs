@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace PackageRZ.Domain.Utils
+namespace PackageRZ.Utils
 {
     public static class AppUse
     {
