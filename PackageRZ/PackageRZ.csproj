@@ -8,9 +8,9 @@
     <Title>PackageRafa</Title>
     <PackageProjectUrl>https://github.com/Rafael-Zancanaro/HelperPackage</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Rafael-Zancanaro/HelperPackage#readme</RepositoryUrl>
-    <AssemblyVersion>1.0.2</AssemblyVersion>
-    <FileVersion>1.0.2</FileVersion>
-    <Version>1.0.2</Version>
+    <AssemblyVersion>1.0.3</AssemblyVersion>
+    <FileVersion>1.0.3</FileVersion>
+    <Version>1.0.3</Version>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <AnalysisLevel>latest</AnalysisLevel>
   </PropertyGroup>
@@ -25,6 +25,8 @@
   <ItemGroup>
 	  <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.3" />
 	  <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.2" />
+	  <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.5.0" />
   </ItemGroup>
 
 </Project>

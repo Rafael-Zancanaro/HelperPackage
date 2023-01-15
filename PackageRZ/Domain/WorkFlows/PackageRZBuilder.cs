@@ -17,8 +17,6 @@ namespace PackageRZ.Domain.WorkFlows
         public IAddPackageRZ AddPackageRZ()
         {
             _services.AddHealthChecks();
-            _services.AddAuthentication();
-            _services.AddAuthorization();
             return this;
         }
 
