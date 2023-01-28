@@ -21,7 +21,7 @@
             return this;
         }
 
-        public ResultViewModel<T> AddErrors(List<string> errors)
+        public ResultViewModel<T> AddError(List<string> errors)
         {
             Errors.AddRange(errors);
             return this;
