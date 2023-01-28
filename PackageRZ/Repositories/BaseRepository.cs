@@ -22,9 +22,9 @@ namespace PackageRZ.Repositories
 
         public async Task<T> InsertAsync(T entity)
         {
-            await _dbSet.AddAsync(entity);
-            await _dbContext.SaveChangesAsync();
-            return entity;
+            var entityAdded = await _dbSet.AddAsync(entity);
+
+            return await SaveAsync() ? entityAdded.Entity : null;
         }
 
         public async Task<T> UpdateAsync(T entity)
@@ -34,8 +34,8 @@ namespace PackageRZ.Repositories
                 return null;
 
             _dbContext.Entry(result).CurrentValues.SetValues(entity);
-            await _dbContext.SaveChangesAsync();
-            return entity;
+
+            return await SaveAsync() ? entity : null;
         }
 
         public async Task<bool> DeleteAsync(T entity)
@@ -45,7 +45,20 @@ namespace PackageRZ.Repositories
                 return false;
 
             _dbSet.Remove(entity);
-            await _dbContext.SaveChangesAsync();
+            return await SaveAsync();
+        }
+
+        public async Task<bool> SaveAsync()
+        {
+            try
+            {
+                await _dbContext.SaveChangesAsync();
+            }
+            catch
+            {
+
+                return false;
+            }
             return true;
         }
     }

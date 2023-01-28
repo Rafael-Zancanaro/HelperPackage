@@ -8,9 +8,9 @@
     <Title>PackageRafa</Title>
     <PackageProjectUrl>https://github.com/Rafael-Zancanaro/HelperPackage</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Rafael-Zancanaro/HelperPackage#readme</RepositoryUrl>
-    <AssemblyVersion>1.0.4</AssemblyVersion>
-    <FileVersion>1.0.4</FileVersion>
-    <Version>1.0.4</Version>
+    <AssemblyVersion>1.0.5</AssemblyVersion>
+    <FileVersion>1.0.5</FileVersion>
+    <Version>1.0.5</Version>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <AnalysisLevel>latest</AnalysisLevel>
   </PropertyGroup>
