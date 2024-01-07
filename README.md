@@ -1,2 +1,2 @@
 # HelperPackage
-package to helper me on my projects
+package for helper me on my projects
