@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PackageRZ.Domain.ViewModels;
+using PackageRZ.Utils;
 using System.Net;
 
 namespace PackageRZ.Controllers
@@ -22,10 +23,11 @@ namespace PackageRZ.Controllers
         public async Task<ResultViewModel<string>> Error()
         {
             var result = new ResultViewModel<string>();
-            result.AddError("Internal error, please try again later");
+            result.AddError(HelperResources.InternalError);
             var exception = HttpContext.Features.Get<IExceptionHandlerFeature>();
 
-            _logger.LogError(exception.Error, @$"DateError:{DateTime.Now}, User:{HttpContext.User.Identity.Name}");
+            _logger.LogError(exception.Error, HelperResources.Informations, 
+                string.Format(HelperResources.LogInformation, DateTime.Now, HttpContext.User.Identity.Name));
             Response.StatusCode = (short)HttpStatusCode.InternalServerError;
 
             return result;
