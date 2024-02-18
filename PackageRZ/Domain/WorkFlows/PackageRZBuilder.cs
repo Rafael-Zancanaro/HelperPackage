@@ -2,28 +2,15 @@
 
 namespace PackageRZ.Domain.WorkFlows
 {
-    public class PackageRZBuilder : IWorkFlow, IAddPackageRZ
+    public class PackageRZBuilder
     {
-        private readonly IServiceCollection _services;
-
-        private PackageRZBuilder(IServiceCollection services)
+        private PackageRZBuilder()
         {
-            _services = services;
         }
 
-        public static IWorkFlow Configure(IServiceCollection services)
-            => new PackageRZBuilder(services);
-
-        public IAddPackageRZ AddPackageRZ()
+        public static void Configure(IServiceCollection services)
         {
-            _services.AddHealthChecks();
-            return this;
-        }
-
-        public IAddPackageRZ AddAutenticacaoLoguin()
-        {
-
-            return this;
+            services.AddHealthChecks();
         }
     }
 }
