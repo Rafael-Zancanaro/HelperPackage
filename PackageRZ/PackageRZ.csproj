@@ -9,10 +9,8 @@
     <PackageProjectUrl>https://github.com/Rafael-Zancanaro/HelperPackage</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Rafael-Zancanaro/HelperPackage#readme</RepositoryUrl>
     <FileVersion>1.0.5</FileVersion>
-    <Version>6.0.1</Version>
+    <Version>6.0.2</Version>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <AnalysisLevel>latest</AnalysisLevel>
-    <PackageLicenseFile>License.md</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.2" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.22" />
 	  <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.5.0" />
   </ItemGroup>
 
