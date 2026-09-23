@@ -6,8 +6,8 @@ namespace PackageRZ.Controllers
     public abstract class ControllerMain : ControllerBase
     {
         protected new IActionResult Response<T>(ResultViewModel<T> result)
-            => result.Success 
-                ? Ok(result) 
+            => result.Success
+                ? Ok(result)
                 : BadRequest(result);
     }
 }
