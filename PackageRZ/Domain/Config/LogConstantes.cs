@@ -8,4 +8,5 @@ public static class LogConstantes
     public const string ErroSistema = "Ocorreu um erro no sistema. Data: {DataErro}";
     public const string TemplateMensagem = "[{EventId}] | Origem: [{Origem}] | Mensagem: {Mensagem} | Detalhes: {Detalhes}";
     public const string TemplateHttp = "[{EventId}] | Origem: [{Origem}] | Status: {StatusCode} | Metodo: {Method} | Url: {Url} | Parametros: {Parametros} | Response: {Conteudo}";
+    public const string TemplateHttpSemConteudo = "[{EventId}] | Origem: [{Origem}] | Status: {StatusCode} | Metodo: {Method} | Url: {Url} | Parametros: {Parametros}";
 }

@@ -46,6 +46,17 @@ public static partial class HelperLogger
             parametros ?? NaoEspecificado,
             conteudo ?? NaoEspecificado);
 
+    public static void ErroHttp(this ILogger logger, Exception exception, int eventId, int statusCode, string metodo, string url, string parametros = NaoEspecificado, string origem = NaoEspecificado)
+        => LogErroHttpExceptionSemConteudo(
+            logger,
+            exception,
+            eventId,
+            origem ?? NaoEspecificado,
+            statusCode,
+            metodo ?? NaoEspecificado,
+            url ?? NaoEspecificado,
+            parametros ?? NaoEspecificado);
+
     public static async Task AvisoHttpAsync(this ILogger logger, int eventId, HttpResponseMessage responseMessage, string origem = NaoEspecificado)
     {
         LogAvisoHttp(
@@ -74,6 +85,9 @@ public static partial class HelperLogger
 
     [LoggerMessage(Level = LogLevel.Error, Message = TemplateHttp)]
     private static partial void LogErroHttpException(ILogger logger, Exception exception, int eventId, string origem, int statusCode, string method, string url, string parametros, string conteudo);
+
+    [LoggerMessage(Level = LogLevel.Error, Message = TemplateHttpSemConteudo)]
+    private static partial void LogErroHttpExceptionSemConteudo(ILogger logger, Exception exception, int eventId, string origem, int statusCode, string method, string url, string parametros);
 
     [LoggerMessage(Level = LogLevel.Warning, Message = TemplateHttp)]
     private static partial void LogAvisoHttp(ILogger logger, int eventId, string origem, int statusCode, string method, string url, string parametros, string conteudo);

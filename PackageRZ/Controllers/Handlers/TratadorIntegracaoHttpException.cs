@@ -21,7 +21,6 @@ public class TratadorIntegracaoHttpException(ILogger<TratadorIntegracaoHttpExcep
             exception.StatusCodeDependencia,
             exception.Metodo,
             exception.Url,
-            conteudo: null,
             parametros: exception.Parametros);
 
         return httpContext.EscreverErroPadraoAsync(exception.StatusRetorno, cancellationToken);
