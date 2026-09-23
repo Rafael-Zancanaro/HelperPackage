@@ -1,94 +1,136 @@
 using Microsoft.Extensions.Logging;
 using PackageRZ.Utils;
-using static PackageRZ.Domain.Config.Constantes;
-using static PackageRZ.Domain.Config.LogConstantes;
+using static PackageRZ.Domain.Config.Constants;
+using static PackageRZ.Domain.Config.LogConstants;
 
 namespace PackageRZ.Logger;
 
 /// <summary>
-/// Classe centralizada de log estruturado para PackageRZ.
-/// Utiliza LoggerMessage source generators para zero-alocacao quando o nivel de log esta desabilitado.
+/// A centralized structured logging class for PackageRZ.
+/// Utilizes LoggerMessage source generators for zero-allocation logging when the log level is disabled.
 /// </summary>
 public static partial class HelperLogger
 {
-    public static void Erro(this ILogger logger, int eventId, string mensagem = NaoEspecificado, string detalhes = NaoEspecificado, string origem = NaoEspecificado)
-        => LogErro(logger, eventId, origem ?? NaoEspecificado, mensagem, detalhes);
+    /// <summary>
+    /// Logs an error message using the standard template.
+    /// </summary>
+    /// <param name="logger">The logger instance.</param>
+    /// <param name="eventId">The event identifier.</param>
+    /// <param name="message">The main log message.</param>
+    /// <param name="details">Additional details.</param>
+    /// <param name="origin">The origin of the log.</param>
+    public static void Error(this ILogger logger, int eventId, string message = NotSpecified, string details = NotSpecified, string origin = NotSpecified)
+        => LogError(logger, eventId, origin ?? NotSpecified, message, details);
 
-    public static void Erro(this ILogger logger, Exception exception, int eventId, string mensagem = NaoEspecificado, string detalhes = NaoEspecificado, string origem = NaoEspecificado)
-        => LogErroException(logger, exception, eventId, origem ?? NaoEspecificado, mensagem, detalhes);
+    /// <summary>
+    /// Logs an error message with an associated exception using the standard template.
+    /// </summary>
+    /// <param name="logger">The logger instance.</param>
+    /// <param name="exception">The exception to log.</param>
+    /// <param name="eventId">The event identifier.</param>
+    /// <param name="message">The main log message.</param>
+    /// <param name="details">Additional details.</param>
+    /// <param name="origin">The origin of the log.</param>
+    public static void Error(this ILogger logger, Exception exception, int eventId, string message = NotSpecified, string details = NotSpecified, string origin = NotSpecified)
+        => LogErrorException(logger, exception, eventId, origin ?? NotSpecified, message, details);
 
-    public static void Aviso(this ILogger logger, int eventId, string mensagem = NaoEspecificado, string detalhes = NaoEspecificado, string origem = NaoEspecificado)
-        => LogAviso(logger, eventId, origem ?? NaoEspecificado, mensagem, detalhes);
+    /// <summary>
+    /// Logs a warning message using the standard template.
+    /// </summary>
+    /// <param name="logger">The logger instance.</param>
+    /// <param name="eventId">The event identifier.</param>
+    /// <param name="message">The main log message.</param>
+    /// <param name="details">Additional details.</param>
+    /// <param name="origin">The origin of the log.</param>
+    public static void Warning(this ILogger logger, int eventId, string message = NotSpecified, string details = NotSpecified, string origin = NotSpecified)
+        => LogWarning(logger, eventId, origin ?? NotSpecified, message, details);
 
-    public static async Task ErroHttpAsync(this ILogger logger, int eventId, HttpResponseMessage responseMessage, string origem = NaoEspecificado)
+    /// <summary>
+    /// Asynchronously logs an HTTP error based on the HTTP response message.
+    /// </summary>
+    /// <param name="logger">The logger instance.</param>
+    /// <param name="eventId">The event identifier.</param>
+    /// <param name="responseMessage">The HTTP response message.</param>
+    /// <param name="origin">The origin of the log.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
+    public static async Task HttpErrorAsync(this ILogger logger, int eventId, HttpResponseMessage responseMessage, string origin = NotSpecified)
     {
-        LogErroHttp(
+        LogHttpError(
             logger,
             eventId,
-            origem ?? NaoEspecificado,
+            origin ?? NotSpecified,
             (int)responseMessage.StatusCode,
-            responseMessage.RequestMessage?.Method.ToString() ?? NaoEspecificado,
-            responseMessage.RequestMessage?.RequestUri?.ToString() ?? NaoEspecificado,
-            await responseMessage.RequestMessage.ObterParametrosAsync() ?? NaoEspecificado,
+            responseMessage.RequestMessage?.Method.ToString() ?? NotSpecified,
+            responseMessage.RequestMessage?.RequestUri?.ToString() ?? NotSpecified,
+            await responseMessage.RequestMessage.GetParametersAsync() ?? NotSpecified,
             await responseMessage.Content.ReadAsStringAsync()
         );
     }
 
-    public static void ErroHttp(this ILogger logger, Exception exception, int eventId, int statusCode, string metodo, string url, string conteudo, string parametros = NaoEspecificado, string origem = NaoEspecificado)
-        => LogErroHttpException(
+    /// <summary>
+    /// Logs an HTTP error with an associated exception.
+    /// </summary>
+    public static void HttpError(this ILogger logger, Exception exception, int eventId, int statusCode, string method, string url, string content, string parameters = NotSpecified, string origin = NotSpecified)
+        => LogHttpErrorException(
             logger,
             exception,
             eventId,
-            origem ?? NaoEspecificado,
+            origin ?? NotSpecified,
             statusCode,
-            metodo ?? NaoEspecificado,
-            url ?? NaoEspecificado,
-            parametros ?? NaoEspecificado,
-            conteudo ?? NaoEspecificado);
+            method ?? NotSpecified,
+            url ?? NotSpecified,
+            parameters ?? NotSpecified,
+            content ?? NotSpecified);
 
-    public static void ErroHttp(this ILogger logger, Exception exception, int eventId, int statusCode, string metodo, string url, string parametros = NaoEspecificado, string origem = NaoEspecificado)
-        => LogErroHttpExceptionSemConteudo(
+    /// <summary>
+    /// Logs an HTTP error with an associated exception, omitting the response content.
+    /// </summary>
+    public static void HttpError(this ILogger logger, Exception exception, int eventId, int statusCode, string method, string url, string parameters = NotSpecified, string origin = NotSpecified)
+        => LogHttpErrorExceptionWithoutContent(
             logger,
             exception,
             eventId,
-            origem ?? NaoEspecificado,
+            origin ?? NotSpecified,
             statusCode,
-            metodo ?? NaoEspecificado,
-            url ?? NaoEspecificado,
-            parametros ?? NaoEspecificado);
+            method ?? NotSpecified,
+            url ?? NotSpecified,
+            parameters ?? NotSpecified);
 
-    public static async Task AvisoHttpAsync(this ILogger logger, int eventId, HttpResponseMessage responseMessage, string origem = NaoEspecificado)
+    /// <summary>
+    /// Asynchronously logs an HTTP warning based on the HTTP response message.
+    /// </summary>
+    public static async Task HttpWarningAsync(this ILogger logger, int eventId, HttpResponseMessage responseMessage, string origin = NotSpecified)
     {
-        LogAvisoHttp(
+        LogHttpWarning(
             logger,
             eventId,
-            origem ?? NaoEspecificado,
+            origin ?? NotSpecified,
             (int)responseMessage.StatusCode,
-            responseMessage.RequestMessage?.Method.ToString() ?? NaoEspecificado,
-            responseMessage.RequestMessage?.RequestUri?.ToString() ?? NaoEspecificado,
-            await responseMessage.RequestMessage.ObterParametrosAsync() ?? NaoEspecificado,
+            responseMessage.RequestMessage?.Method.ToString() ?? NotSpecified,
+            responseMessage.RequestMessage?.RequestUri?.ToString() ?? NotSpecified,
+            await responseMessage.RequestMessage.GetParametersAsync() ?? NotSpecified,
             await responseMessage.Content.ReadAsStringAsync()
         );
     }
 
-    [LoggerMessage(Level = LogLevel.Error, Message = TemplateMensagem)]
-    private static partial void LogErro(ILogger logger, int eventId, string origem, string mensagem, string detalhes);
+    [LoggerMessage(Level = LogLevel.Error, Message = MessageTemplate)]
+    private static partial void LogError(ILogger logger, int eventId, string origin, string message, string details);
 
-    [LoggerMessage(Level = LogLevel.Error, Message = TemplateMensagem)]
-    private static partial void LogErroException(ILogger logger, Exception exception, int eventId, string origem, string mensagem, string detalhes);
+    [LoggerMessage(Level = LogLevel.Error, Message = MessageTemplate)]
+    private static partial void LogErrorException(ILogger logger, Exception exception, int eventId, string origin, string message, string details);
 
-    [LoggerMessage(Level = LogLevel.Warning, Message = TemplateMensagem)]
-    private static partial void LogAviso(ILogger logger, int eventId, string origem, string mensagem, string detalhes);
+    [LoggerMessage(Level = LogLevel.Warning, Message = MessageTemplate)]
+    private static partial void LogWarning(ILogger logger, int eventId, string origin, string message, string details);
 
-    [LoggerMessage(Level = LogLevel.Error, Message = TemplateHttp)]
-    private static partial void LogErroHttp(ILogger logger, int eventId, string origem, int statusCode, string method, string url, string parametros, string conteudo);
+    [LoggerMessage(Level = LogLevel.Error, Message = HttpTemplate)]
+    private static partial void LogHttpError(ILogger logger, int eventId, string origin, int statusCode, string method, string url, string parameters, string content);
 
-    [LoggerMessage(Level = LogLevel.Error, Message = TemplateHttp)]
-    private static partial void LogErroHttpException(ILogger logger, Exception exception, int eventId, string origem, int statusCode, string method, string url, string parametros, string conteudo);
+    [LoggerMessage(Level = LogLevel.Error, Message = HttpTemplate)]
+    private static partial void LogHttpErrorException(ILogger logger, Exception exception, int eventId, string origin, int statusCode, string method, string url, string parameters, string content);
 
-    [LoggerMessage(Level = LogLevel.Error, Message = TemplateHttpSemConteudo)]
-    private static partial void LogErroHttpExceptionSemConteudo(ILogger logger, Exception exception, int eventId, string origem, int statusCode, string method, string url, string parametros);
+    [LoggerMessage(Level = LogLevel.Error, Message = HttpTemplateWithoutContent)]
+    private static partial void LogHttpErrorExceptionWithoutContent(ILogger logger, Exception exception, int eventId, string origin, int statusCode, string method, string url, string parameters);
 
-    [LoggerMessage(Level = LogLevel.Warning, Message = TemplateHttp)]
-    private static partial void LogAvisoHttp(ILogger logger, int eventId, string origem, int statusCode, string method, string url, string parametros, string conteudo);
+    [LoggerMessage(Level = LogLevel.Warning, Message = HttpTemplate)]
+    private static partial void LogHttpWarning(ILogger logger, int eventId, string origin, int statusCode, string method, string url, string parameters, string content);
 }

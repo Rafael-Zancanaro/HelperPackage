@@ -2,14 +2,26 @@ using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using PackageRZ.Domain.ViewModels;
+using PackageRZ.Utils;
 using System.Collections.Concurrent;
 
 namespace PackageRZ.Controllers.Filters;
 
+/// <summary>
+/// An asynchronous action filter that validates action arguments using FluentValidation.
+/// Short-circuits the request with a BadRequest and standardized error response if validation fails.
+/// </summary>
 public class ValidationFilter : IAsyncActionFilter
 {
     private static readonly ConcurrentDictionary<Type, Type> _validatorTypeCache = new();
 
+    /// <summary>
+    /// Called asynchronously before the action, after model binding is complete.
+    /// Evaluates all complex type arguments against registered FluentValidation validators.
+    /// </summary>
+    /// <param name="context">The context for the action execution.</param>
+    /// <param name="next">The delegate to execute the next filter or the action itself.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
     public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
         if (context.ActionDescriptor.Parameters.Count == 0)
@@ -35,7 +47,7 @@ public class ValidationFilter : IAsyncActionFilter
 
             if (!context.ActionArguments.TryGetValue(parameter.Name, out var argumentValue) || argumentValue is null)
             {
-                var result = new ResultViewModel<string>().AddErros(PackageRZ.Utils.HelperResources.InternalError);
+                var result = new ResultViewModel<string>().AddErrors(HelperResources.InternalError);
                 context.Result = new BadRequestObjectResult(result);
                 return;
             }
@@ -46,7 +58,7 @@ public class ValidationFilter : IAsyncActionFilter
             if (!validationResult.IsValid)
             {
                 var messages = validationResult.Errors.Select(e => e.ErrorMessage).ToList();
-                var result = new ResultViewModel<string>().AddErros(messages);
+                var result = new ResultViewModel<string>().AddErrors(messages);
                 context.Result = new BadRequestObjectResult(result);
                 return;
             }
