@@ -4,8 +4,8 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Description>package to help on apis</Description>
-    <Title>PackageRafaelZC</Title>
+    <Description>A comprehensive .NET helper package providing standardized error handling, resilient HTTP calls with Polly, structured logging, and base repositories.</Description>
+    <Title>PackageRZ</Title>
     <PackageProjectUrl>https://github.com/Rafael-Zancanaro/HelperPackage</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Rafael-Zancanaro/HelperPackage#readme</RepositoryUrl>
     <FileVersion>1.0.5</FileVersion>
